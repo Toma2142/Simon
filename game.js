@@ -3,18 +3,9 @@ let gamePattern = [];
 let useClickPattern = [];
 let start = false;
 let level = 0;
+let pickingColors = false;
 
-$(`html`).on(`keydown`, function (e) {
-    if (e.key === `Enter` && level === 0) {
-        nextSequence();
-        start = true;
-    } else {
-        console.log(e.key);
-    }
-
-});
-
-function picksLeft () {
+function picksLeft() {
     for (i = 0; i <= gamePattern.length; i++) {
 
     }
@@ -29,7 +20,7 @@ function retry() {
 
 function checkAnswer(level) {
     let isEqual = gamePattern.toString() === useClickPattern.toString();
-    if (isEqual === true && level === useClickPattern.length) {
+    if (isEqual === true) {
         console.log(`Right`);
         setTimeout(function () {
             useClickPattern = [];
@@ -46,7 +37,7 @@ function checkAnswer(level) {
         }, 200);
         $(`#level-title`).text(`GAME OVER!`);
         setTimeout(function () {
-            $(`#level-title`).text(`Press Enter to play again!`);
+            $(`#level-title`).text(`Click on a Color to Play Again`);
             retry();
         }, 2500);
     } else {
@@ -57,10 +48,15 @@ function checkAnswer(level) {
 function nextSequence() {
     let randomNumber = Math.floor(Math.random() * 4);
     let randomChosenColor = buttonColors[randomNumber];
-    $(`#` + randomChosenColor).fadeOut(100).fadeIn(100);
-    playSound(randomChosenColor);
-    level++;
     gamePattern.push(randomChosenColor);
+    for (let i = 0; i < gamePattern.length; i++) {
+        let colorList = gamePattern[i];
+        setTimeout(function() {
+            $(`#` + colorList).fadeOut(250).fadeIn(250);
+            playSound(gamePattern[i])
+        }, i * 500);
+    }
+    level++;
     $(`#level-title`).text(`Level ` + level);
 }
 
@@ -84,7 +80,10 @@ $(".btn").on("pointerdown", function (e) {
         useClickPattern.push(userChosenColor);
         checkAnswer(level);
     } else {
-        console.log(`Game has not started`);
+        setTimeout(function() {
+            nextSequence();
+        }, 500);
+        start = true;
     }
 
 });

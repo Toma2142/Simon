@@ -17,14 +17,23 @@ body {
   color: #FEF2BF;
 }
 
+.btn:hover, .btn:focus {
+  color: #fff;     
+  text-decoration: none;
+}
+
 .container {
   display: block;
   width: 50%;
   margin: auto;
-
+  text-align: center;
 }
 
-.btn {
+.btn:hover {
+  box-shadow: 0 0 0 5px gray;
+}
+
+.btn, .btn:hover {
   margin: 25px;
   display: inline-block;
   height: 200px;
@@ -38,19 +47,19 @@ body {
   opacity: 0.8;
 }
 
-.red {
+.red, .red:hover {
   background-color: red;
 }
 
-.green {
+.green, .green:hover {
   background-color: green;
 }
 
-.blue {
+.blue, .blue:hover {
   background-color: blue;
 }
 
-.yellow {
+.yellow, .yellow:hover {
   background-color: yellow;
 }
 
